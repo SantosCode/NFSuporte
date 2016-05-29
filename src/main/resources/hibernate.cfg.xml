@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://192.168.200.6:3306/NFSuporte</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.username">aptech</property>
+        <property name="connection.password">Aptech2016</property>
+        <!-- DB schema will be updated if needed -->
+        <property name="hbm2ddl.auto">update</property>
+        <!-- Sessão -->
+        <property name="current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext
+        </property>
+        <!-- SQL Dialeto -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        <!-- Cache de segundo Nivel -->
+        <property name="cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
+        <!-- Mostra as SQLs geradas -->
+        <property name="show_sql">true</property>
+        <!-- Mapeamento de Entidades -->
+        <mapping class="br.com.nfsconsultoria.nfsuporte.domain.Usuario"/>
+        <mapping class="br.com.nfsconsultoria.nfsuporte.domain.Cliente"/>
+        <mapping class="br.com.nfsconsultoria.nfsuporte.domain.Equipamento"/>
+        <mapping class="br.com.nfsconsultoria.nfsuporte.domain.Ocorrencia"/>
+        
+    </session-factory>
+</hibernate-configuration>
