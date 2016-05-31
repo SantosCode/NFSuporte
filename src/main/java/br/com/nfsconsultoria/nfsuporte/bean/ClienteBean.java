@@ -9,24 +9,28 @@ import br.com.nfsconsultoria.nfsuporte.dao.ClienteDAO;
 import br.com.nfsconsultoria.nfsuporte.dao.UsuarioDAO;
 import br.com.nfsconsultoria.nfsuporte.domain.Cliente;
 import br.com.nfsconsultoria.nfsuporte.domain.Usuario;
-import java.io.Serializable;
-import java.util.List;
+import org.omnifaces.util.Messages;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import org.omnifaces.util.Messages;
-import org.primefaces.model.UploadedFile;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author luissantos
  */
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class ClienteBean implements Serializable{
-    
+public class ClienteBean implements Serializable {
+
     private Cliente cliente;
     private List<Cliente> clientes;
     private List<Usuario> usuarios;
@@ -38,7 +42,7 @@ public class ClienteBean implements Serializable{
         this.clientes = clienteDAO.listar();
         this.usuarios = usuarioDAO.listarLazy("usuario");
     }
-    
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -70,55 +74,65 @@ public class ClienteBean implements Serializable{
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
-    
+
     @PostConstruct
-    public void listar(){
+    public void listar() {
         try {
             ClienteDAO clienteDAO = new ClienteDAO();
             this.clientes = clienteDAO.listar();
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             this.usuarios = usuarioDAO.listarLazy("usuario");
         } catch (RuntimeException erro) {
-            Messages.addGlobalError("Ocorreu o erro " 
-                    +erro.getMessage()+ " ao tentar listar clientes");
+            Messages.addGlobalError("Ocorreu o erro "
+                    + erro.getMessage() + " ao tentar listar clientes");
         }
     }
-     
-    public void novo(){
+
+    public void upFile(FileUploadEvent evento) {
+        try {
+            String nome = evento.getFile().getFileName();
+            FileOutputStream file = new FileOutputStream(nome);
+            file.write(evento.getFile().getContents());
+            file.flush();
+            file.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void novo() {
         this.cliente = new Cliente();
     }
-    
-    public void salvar(){
+
+    public void salvar() {
         try {
             ClienteDAO clienteDAO = new ClienteDAO();
-            if (contrato != null) {
-                cliente.setContrato(contrato.getContents());
-            System.out.println(contrato.getFileName());
-                Messages.addGlobalInfo("Contrato salvo com sucesso");
-            }
+
             clienteDAO.merge(cliente);
             listar();
             novo();
             Messages.addFlashGlobalInfo("Cliente salvo com sucesso");
         } catch (RuntimeException erro) {
-            Messages.addGlobalError("Ocorreu o erro " 
-                    +erro.getMessage()+ " ao tentar salvar cliente");
+            Messages.addGlobalError("Ocorreu o erro "
+                    + erro.getMessage() + " ao tentar salvar cliente");
             erro.printStackTrace();
         }
     }
-    
-    public void editar(ActionEvent evento){
+
+    public void editar(ActionEvent evento) {
         try {
             listar();
             cliente = (Cliente) evento.getComponent().getAttributes()
                     .get("clienteSelecionado");
         } catch (RuntimeException erro) {
-            Messages.addGlobalError("Ocorreu o erro " 
-                    +erro.getMessage()+ " ao tentar editar cliente");
+            Messages.addGlobalError("Ocorreu o erro "
+                    + erro.getMessage() + " ao tentar editar cliente");
         }
     }
-    
-    public void excluir(ActionEvent evento){
+
+    public void excluir(ActionEvent evento) {
         try {
             cliente = (Cliente) evento.getComponent().getAttributes()
                     .get("clienteSelecionado");
@@ -127,8 +141,8 @@ public class ClienteBean implements Serializable{
             listar();
             novo();
         } catch (RuntimeException erro) {
-            Messages.addGlobalError("Ocorreu o erro " 
-                    +erro.getMessage()+ " ao tentar excluir cliente");
+            Messages.addGlobalError("Ocorreu o erro "
+                    + erro.getMessage() + " ao tentar excluir cliente");
             erro.printStackTrace();
         }
     }

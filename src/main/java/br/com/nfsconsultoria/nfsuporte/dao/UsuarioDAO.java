@@ -8,9 +8,8 @@ package br.com.nfsconsultoria.nfsuporte.dao;
 import br.com.nfsconsultoria.nfsuporte.domain.Usuario;
 
 /**
- *
  * @author luissantos
  */
-public class UsuarioDAO extends GenericDAO<Usuario>{
-    
+public class UsuarioDAO extends GenericDAO<Usuario> {
+
 }

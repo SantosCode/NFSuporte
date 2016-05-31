@@ -9,16 +9,16 @@ import br.com.nfsconsultoria.nfsuporte.dao.ClienteDAO;
 import br.com.nfsconsultoria.nfsuporte.dao.EquipamentoDAO;
 import br.com.nfsconsultoria.nfsuporte.domain.Cliente;
 import br.com.nfsconsultoria.nfsuporte.domain.Equipamento;
-import java.io.Serializable;
-import java.util.List;
+import org.omnifaces.util.Messages;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import org.omnifaces.util.Messages;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author luissantos
  */
 @SuppressWarnings("serial")
@@ -68,7 +68,7 @@ public class EquipamentoBean implements Serializable {
             this.equipamentos = equipamentoDAO.listar();
 
         } catch (RuntimeException erro) {
-            Messages.addGlobalError("Ocoreu o erro " +erro.getMessage()
+            Messages.addGlobalError("Ocoreu o erro " + erro.getMessage()
                     + " ao tentar listar equipamentos");
         }
     }
@@ -85,24 +85,24 @@ public class EquipamentoBean implements Serializable {
             novo();
             Messages.addGlobalInfo("Equipamento salvo com sucesso");
         } catch (RuntimeException erro) {
-            Messages.addGlobalError("Ocoreu o erro " +erro.getMessage()
+            Messages.addGlobalError("Ocoreu o erro " + erro.getMessage()
                     + " ao tentar salvar equipamento");
             erro.printStackTrace();
         }
     }
-    
-    public void editar(ActionEvent evento){
+
+    public void editar(ActionEvent evento) {
         try {
             listar();
             equipamento = (Equipamento) evento.getComponent().getAttributes()
                     .get("equipamentoSelecionado");
         } catch (RuntimeException erro) {
-            Messages.addGlobalError("Ocoreu o erro " +erro.getMessage()
+            Messages.addGlobalError("Ocoreu o erro " + erro.getMessage()
                     + " ao tentar selecionar equipamento");
         }
     }
-    
-    public void excluir(ActionEvent evento){
+
+    public void excluir(ActionEvent evento) {
         try {
             equipamento = (Equipamento) evento.getComponent().getAttributes()
                     .get("equipamentoSelecionado");
@@ -112,7 +112,7 @@ public class EquipamentoBean implements Serializable {
             novo();
             Messages.addGlobalInfo("Equipamento excluido com sucesso");
         } catch (RuntimeException erro) {
-            Messages.addGlobalError("Ocoreu o erro " +erro.getMessage()
+            Messages.addGlobalError("Ocoreu o erro " + erro.getMessage()
                     + " ao tentar excluir equipamento");
         }
     }

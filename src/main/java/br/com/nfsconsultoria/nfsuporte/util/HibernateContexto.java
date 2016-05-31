@@ -9,11 +9,10 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 /**
- *
  * @author luissantos
  */
-public class HibernateContexto implements ServletContextListener{
-     @Override
+public class HibernateContexto implements ServletContextListener {
+    @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         HibernateUtil.getFabricaDeSessoes();
     }

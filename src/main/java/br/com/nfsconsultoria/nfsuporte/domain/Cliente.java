@@ -5,44 +5,38 @@
  */
 package br.com.nfsconsultoria.nfsuporte.domain;
 
+import javax.persistence.*;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
- *
  * @author luissantos
  */
 @SuppressWarnings("serial")
 @Entity
-public class Cliente extends GenericDomain{
-    
-    @Column(nullable = false,length = 45, unique = true)
+public class Cliente extends GenericDomain {
+
+    @Column(nullable = false, length = 45, unique = true)
     private String empresa;
-    
+
     @Column(length = 15)
     private String tel;
-    
+
     @Column(length = 80)
     private String rua;
-    
+
     @Column(length = 45)
     private String bairro;
-    
+
     @Column(length = 45)
     private String cidade;
-    
+
     @Temporal(TemporalType.DATE)
     @Column
-   private Date data_c;
-    
+    private Date data_c;
+
     @Column(columnDefinition = "LONGBLOB")
     private byte[] contrato;
-    
+
     @ManyToOne
     @JoinColumn(nullable = true)
     private Usuario usuario;
@@ -111,5 +105,5 @@ public class Cliente extends GenericDomain{
         this.usuario = usuario;
     }
 
-    
+
 }

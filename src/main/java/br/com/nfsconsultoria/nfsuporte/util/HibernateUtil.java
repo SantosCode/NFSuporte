@@ -11,7 +11,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 /**
- *
  * @author luissantos
  */
 public class HibernateUtil {

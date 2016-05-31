@@ -8,9 +8,8 @@ package br.com.nfsconsultoria.nfsuporte.dao;
 import br.com.nfsconsultoria.nfsuporte.domain.Ocorrencia;
 
 /**
- *
  * @author luissantos
  */
-public class OcorrenciaDAO extends GenericDAO<Ocorrencia>{
-    
+public class OcorrenciaDAO extends GenericDAO<Ocorrencia> {
+
 }

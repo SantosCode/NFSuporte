@@ -1,45 +1,47 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	template="/template/modelo.xhtml">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/modelo.xhtml">
 
     <ui:define name="conteudo">
         <h:form id="formListagem">
-            <p:panel header="Usuarios">    
+            <p:panel header="Usuarios">
                 <p:dataTable id="tabela" emptyMessage="Nenhum usuario encontrado." var="usuario" paginator="true"
-                             value="#{usuarioBean.usuarios}" rows="10" paginatorPosition="top" rendered="true" liveResize="true"
+                             value="#{usuarioBean.usuarios}" rows="10" paginatorPosition="top" rendered="true"
+                             liveResize="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}">
                     <f:facet name="header">
                         <p:commandButton value="Novo Cadastro" actionListener="#{usuarioBean.novo()}"
                                          oncomplete="PF('dialogo').show();"
                                          update=":mensagem :formCadastro:painel">
                             <f:actionListener
-                                type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                                    type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
                         </p:commandButton>
-                        
+
                     </f:facet>
                     <p:column headerText="Nome" filterBy="#{usuario.nome}"
                               sortBy="#{usuario.nome}" colspan="1">
-                        <h:outputText value="#{usuario.nome}" />
+                        <h:outputText value="#{usuario.nome}"/>
                     </p:column>
 
                     <p:column headerText="E-mail" filterBy="#{usuario.email}"
                               sortBy="#{usuario.email}" colspan="2">
-                        <h:outputText value="#{usuario.email}" />
+                        <h:outputText value="#{usuario.email}"/>
                     </p:column>
 
                     <p:column headerText="Telefone" filterBy="#{usuario.tel}"
                               sortBy="#{usuario.tel}">
-                        <h:outputText value="#{usuario.tel}" />
+                        <h:outputText value="#{usuario.tel}"/>
                     </p:column>
 
                     <p:column headerText="Login" filterBy="#{usuario.login}"
                               sortBy="#{usuario.login}">
-                        <h:outputText value="#{usuario.login}" />
+                        <h:outputText value="#{usuario.login}"/>
                     </p:column>
 
                     <p:column headerText="Opções" exportable="false">
@@ -47,35 +49,35 @@
                                          actionListener="#{usuarioBean.excluir}"
                                          update=":mensagem :formListagem:tabela">
                             <p:confirm header="Confirmação" message="Deseja excluir o usuario"
-                                       icon="ui-icon-alert" />
-                            <f:attribute name="usuarioSelecionado" value="#{usuario}" />
+                                       icon="ui-icon-alert"/>
+                            <f:attribute name="usuarioSelecionado" value="#{usuario}"/>
                         </p:commandButton>
 
                         <p:commandButton icon="ui-icon-pencil"
                                          actionListener="#{usuarioBean.editar}"
                                          update=":mensagem :formCadastro:painel"
                                          oncomplete="PF('dialogo').show();">
-                            <f:attribute name="usuarioSelecionado" value="#{usuario}" />
+                            <f:attribute name="usuarioSelecionado" value="#{usuario}"/>
                             <f:actionListener
-                                type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                                    type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
                         </p:commandButton>
-                        
+
                         <p:commandButton icon="ui-icon-info"
                                          actionListener="#{usuarioBean.editar}"
                                          update=":mensagem :formListagem:tabela"
                                          oncomplete="PF('dlgVisu').show();">
-                            <f:attribute name="usuarioSelecionado" value="#{usuario}" />
+                            <f:attribute name="usuarioSelecionado" value="#{usuario}"/>
                             <f:actionListener
-                                type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                                    type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
             </p:panel>
             <p:confirmDialog global="true">
                 <p:commandButton value="Sim" type="button"
-                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                 <p:commandButton value="Não" type="button"
-                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
             </p:confirmDialog>
         </h:form>
 
@@ -85,46 +87,47 @@
 
             <h:form id="formCadastro">
                 <h:panelGrid id="painel" columns="2">
-                    <p:outputLabel for="nome" value="Nome:" />
+                    <p:outputLabel for="nome" value="Nome:"/>
                     <p:inputText id="nome" maxlength="50" size="30"
                                  value="#{usuarioBean.usuario.nome}" required="true"
-                                 requiredMessage="O campo 'Nome' é obrigatório" />
+                                 requiredMessage="O campo 'Nome' é obrigatório"/>
 
-                    <p:outputLabel for="email" value="E-mail:" />
+                    <p:outputLabel for="email" value="E-mail:"/>
                     <p:inputText id="email" maxlength="50" size="30"
                                  value="#{usuarioBean.usuario.email}" required="true"
-                                 requiredMessage="O campo 'E-mail' é obrigatório" />
+                                 requiredMessage="O campo 'E-mail' é obrigatório"/>
 
                     <p:outputLabel for="tel" value="Tel:"/>
-                    <p:inputMask id="tel" mask="(99) 9999-9999" value="#{usuarioBean.usuario.tel}" />
+                    <p:inputMask id="tel" mask="(99) 9999-9999" value="#{usuarioBean.usuario.tel}"/>
 
-                    <p:outputLabel for="login" value="Login:" />
+                    <p:outputLabel for="login" value="Login:"/>
                     <p:inputText id="login" maxlength="50" size="30"
                                  value="#{usuarioBean.usuario.login}" required="true"
-                                 requiredMessage="O campo 'Login' é obrigatório" />
+                                 requiredMessage="O campo 'Login' é obrigatório"/>
 
                     <p:outputLabel for="senha" value="Senha:"/>
-                    <p:password id="senha" value="#{usuarioBean.usuario.senha}" feedback="true" 
-                                promptLabel="Digite uma senha forte" weakLabel="Senha Fraca" goodLabel="Senha média" strongLabel="Senha Forte" />
-                    
-                <p:outputLabel for="idNivel" value="Nivel:"/>
-                <p:selectOneMenu id="idNivel"
-                                 value="#{usuarioBean.usuario.nivel}"
+                    <p:password id="senha" value="#{usuarioBean.usuario.senha}" feedback="true"
+                                promptLabel="Digite uma senha forte" weakLabel="Senha Fraca" goodLabel="Senha média"
+                                strongLabel="Senha Forte"/>
+
+                    <p:outputLabel for="idNivel" value="Nivel:"/>
+                    <p:selectOneMenu id="idNivel"
+                                     value="#{usuarioBean.usuario.nivel}"
                                      filter="true" required="true"
                                      requiredMessage="O campo nivel é obrigatório "
                                      converter="omnifaces.SelectItemsConverter">
                         <f:selectItem noSelectionOption="true"
                                       itemLabel="Nivel de aceso:"/>
-                        <f:selectItems value="#{usuarioBean.niveis}" var="idNivel" itemValue="#{idNivel}" />        
+                        <f:selectItems value="#{usuarioBean.niveis}" var="idNivel" itemValue="#{idNivel}"/>
                     </p:selectOneMenu>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
                     <p:commandButton value="Salvar"
                                      actionListener="#{usuarioBean.salvar}"
-                                     update=":mensagem :formCadastro:painel :formListagem:tabela" />
+                                     update=":mensagem :formCadastro:painel :formListagem:tabela"/>
 
-                    <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+                    <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
                 </h:panelGrid>
             </h:form>
         </p:dialog>
@@ -134,27 +137,27 @@
             <h:form id="formVisu">
 
                 <h:panelGrid id="painel" columns="2">
-                    <p:outputLabel for="nome" value="Nome:" style="font-weight: bold" />
-                    <h:outputText id="nome" value="#{usuarioBean.usuario.nome}" />
+                    <p:outputLabel for="nome" value="Nome:" style="font-weight: bold"/>
+                    <h:outputText id="nome" value="#{usuarioBean.usuario.nome}"/>
 
                     <p:outputLabel for="email" value="E-mail:"
-                                   style="font-weight: bold" />
-                    <h:outputText id="email" value="#{usuarioBean.usuario.email}" />
-                   
+                                   style="font-weight: bold"/>
+                    <h:outputText id="email" value="#{usuarioBean.usuario.email}"/>
+
                     <p:outputLabel for="telFixo" value="Tel Fixo:"
-                                   style="font-weight: bold" />
-                    <h:outputText id="telFixo" value="#{usuarioBean.usuario.tel}" />
+                                   style="font-weight: bold"/>
+                    <h:outputText id="telFixo" value="#{usuarioBean.usuario.tel}"/>
 
                     <p:outputLabel for="login" value="Login:"
-                                   style="font-weight: bold" />
-                    <h:outputText id="login" value="#{usuarioBean.usuario.login}" />
+                                   style="font-weight: bold"/>
+                    <h:outputText id="login" value="#{usuarioBean.usuario.login}"/>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
-                    <p:commandButton value="Fechar" oncomplete="PF('dlgVisu').hide();" />
+                    <p:commandButton value="Fechar" oncomplete="PF('dlgVisu').hide();"/>
                     <p:commandButton value="Imprimir" type="button"
                                      icon="ui-icon-print">
-                        <p:printer target="formVisu" />
+                        <p:printer target="formVisu"/>
                     </p:commandButton>
                 </h:panelGrid>
             </h:form>

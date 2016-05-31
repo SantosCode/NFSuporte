@@ -7,27 +7,27 @@ package br.com.nfsconsultoria.nfsuporte.bean;
 
 import br.com.nfsconsultoria.nfsuporte.dao.UsuarioDAO;
 import br.com.nfsconsultoria.nfsuporte.domain.Usuario;
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-import javax.faces.event.ActionEvent;
+import org.omnifaces.util.Messages;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.omnifaces.util.Messages;
+import javax.faces.event.ActionEvent;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 /**
- *
  * @author luissantos
  */
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class UsuarioBean implements Serializable{
-    
+public class UsuarioBean implements Serializable {
+
     private Usuario usuario;
     private List<Usuario> usuarios;
-    
+
     public UsuarioBean() {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         this.usuarios = usuarioDAO.listar();
@@ -48,54 +48,55 @@ public class UsuarioBean implements Serializable{
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
-    
-     public List<String> getNiveis() {
+
+    public List<String> getNiveis() {
         String[] nivel = new String[]{"Administrador", "Usuario", "Cliente"};
         return Arrays.asList(nivel);
-  
+
     }
+
     @PostConstruct
-    public void listar(){
+    public void listar() {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             this.usuarios = usuarioDAO.listar();
         } catch (RuntimeException erro) {
-            Messages.addGlobalError("Ocorreu o erro " 
-                    +erro.getMessage()+ " ao tentar listar usuarios");
+            Messages.addGlobalError("Ocorreu o erro "
+                    + erro.getMessage() + " ao tentar listar usuarios");
             erro.printStackTrace();
         }
     }
-    
-    public void novo(){
+
+    public void novo() {
         this.usuario = new Usuario();
     }
-    
-    public void salvar(){
-            try {
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                usuarioDAO.merge(usuario);
-                listar();
-                novo();
-                Messages.addGlobalInfo("Usuario salvo com sucesso");
-            } catch (RuntimeException erro) {
-                Messages.addGlobalError("Ocorreu o erro " 
-                    +erro.getMessage()+ " ao tentar salvar usuario");
-                erro.printStackTrace();
-            }
+
+    public void salvar() {
+        try {
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            usuarioDAO.merge(usuario);
+            listar();
+            novo();
+            Messages.addGlobalInfo("Usuario salvo com sucesso");
+        } catch (RuntimeException erro) {
+            Messages.addGlobalError("Ocorreu o erro "
+                    + erro.getMessage() + " ao tentar salvar usuario");
+            erro.printStackTrace();
+        }
     }
-    
-    public void editar(ActionEvent evento){
+
+    public void editar(ActionEvent evento) {
         try {
             listar();
             usuario = (Usuario) evento.getComponent().getAttributes()
                     .get("usuarioSelecionado");
         } catch (RuntimeException erro) {
-            Messages.addGlobalError("Ocorreu o erro " 
-                    +erro.getMessage()+ " ao tentar editar usuario");
+            Messages.addGlobalError("Ocorreu o erro "
+                    + erro.getMessage() + " ao tentar editar usuario");
         }
     }
-    
-    public void excluir(ActionEvent evento){
+
+    public void excluir(ActionEvent evento) {
         try {
             usuario = (Usuario) evento.getComponent().getAttributes()
                     .get("usuarioSelecionado");
@@ -105,8 +106,8 @@ public class UsuarioBean implements Serializable{
             novo();
             Messages.addGlobalInfo("Usuario removido com sucesso");
         } catch (RuntimeException erro) {
-            Messages.addGlobalError("Ocorreu o erro " 
-                    +erro.getMessage()+ " ao tentar excluir usuario");
+            Messages.addGlobalError("Ocorreu o erro "
+                    + erro.getMessage() + " ao tentar excluir usuario");
             erro.printStackTrace();
         }
     }

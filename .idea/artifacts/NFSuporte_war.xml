@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="NFSuporte:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="NFSuporte.war">
+      <element id="artifact" artifact-name="NFSuporte:war exploded" />
+    </root>
+  </artifact>
+</component>

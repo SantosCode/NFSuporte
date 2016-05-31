@@ -11,7 +11,8 @@
         <!-- DB schema will be updated if needed -->
         <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- Sessão -->
-        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext
+        <property name="hibernate.current_session_context_class">
+            org.hibernate.context.internal.ThreadLocalSessionContext
         </property>
         <!-- SQL Dialeto -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
@@ -24,7 +25,7 @@
         <mapping class="br.com.nfsconsultoria.nfsuporte.domain.Cliente"/>
         <mapping class="br.com.nfsconsultoria.nfsuporte.domain.Equipamento"/>
         <mapping class="br.com.nfsconsultoria.nfsuporte.domain.Ocorrencia"/>
-        
+
     </session-factory>
 </hibernate-configuration>
 

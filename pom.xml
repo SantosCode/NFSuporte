@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.com.nfsconsultoria</groupId>
     <artifactId>NFSuporte</artifactId>
     <version>1.0-BETA</version>
     <packaging>war</packaging>
-    
+
     <name>NFSuporte</name>
     <description>Sistema de abertura de incidentes</description>
 
@@ -14,7 +15,7 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-   
+
     <build>
         <!-- Nome do projeto empacotado -->
         <finalName>NFSuporte</finalName>
@@ -74,9 +75,9 @@
             <name>PrimeFaces Maven Repository</name>
             <layout>default</layout>
             <url>http://repository.primefaces.org/</url>
-        </repository>       
+        </repository>
     </repositories>
-    
+
     <!-- Dependências -->
     <dependencies>
         <dependency>
@@ -90,7 +91,7 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- Hibernate Core -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -98,14 +99,14 @@
             <version>4.3.11.Final</version>
             <type>jar</type>
         </dependency>
-        
+
         <!-- MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.38</version>
         </dependency>
-        
+
         <!-- JSF -->
         <dependency>
             <groupId>org.glassfish</groupId>
@@ -113,9 +114,9 @@
             <version>2.2.12</version>
             <type>jar</type>
         </dependency>
-        
+
         <!-- Prime Faces -->
-         <dependency>
+        <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>5.3</version>
@@ -126,28 +127,28 @@
             <artifactId>all-themes</artifactId>
             <version>1.0.10</version>
         </dependency>
-        
+
         <!-- OmniFaces -->
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
             <version>1.13</version>
         </dependency>
-        
+
         <!-- Commons Mail -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-email</artifactId>
             <version>1.4</version>
         </dependency>
-        
+
         <!-- Servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
         </dependency>
-        
+
         <!-- Apache Shiro Core -->
         <dependency>
             <groupId>org.apache.shiro</groupId>

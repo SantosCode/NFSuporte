@@ -6,16 +6,16 @@
 package br.com.nfsconsultoria.nfsuporte.dao;
 
 import br.com.nfsconsultoria.nfsuporte.util.HibernateUtil;
-import java.lang.reflect.ParameterizedType;
-import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
+
 /**
- *
  * @author luissantos
  */
 public class GenericDAO<Entidade> {

@@ -5,48 +5,42 @@
  */
 package br.com.nfsconsultoria.nfsuporte.domain;
 
+import javax.persistence.*;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
- *
  * @author luissantos
  */
 @SuppressWarnings("serial")
 @Entity
-public class Ocorrencia extends GenericDomain{
-    
+public class Ocorrencia extends GenericDomain {
+
     @Column(nullable = false, length = 45)
     private String tipo;
-    
+
     @Column(nullable = false, length = 100)
     private String descricao;
-    
+
     @ManyToOne
     @JoinColumn
     private Cliente cliente;
-    
+
     @ManyToOne
     @JoinColumn
     private Equipamento equipamento;
-    
+
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date data_ab;
-    
+
     @Temporal(TemporalType.DATE)
     @Column
     private Date data_at;
-    
+
     @Temporal(TemporalType.DATE)
     @Column
     private Date data_enc;
-    
+
     @Column(length = 100)
     private String solucao;
 
