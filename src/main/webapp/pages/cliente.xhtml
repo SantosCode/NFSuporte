@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/template/modelo.xhtml">
+
+    <ui:define name="conteudo">
+        <h:form id="formListagem">
+            <p:panel header="Clientes">    
+                <p:dataTable id="tabela" emptyMessage="Nenhum cliente encontrado." var="cliente" paginator="true"
+                             value="#{clienteBean.clientes}" rows="10" paginatorPosition="top" rendered="true" liveResize="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}">
+                    <f:facet name="header">
+                        <p:commandButton value="Novo Cadastro" actionListener="#{clienteBean.novo}"
+                                         oncomplete="PF('dialogo').show();"
+                                         update=":mensagem :formCadastro:painel">
+                            <f:actionListener
+                                type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                        </p:commandButton>
+                        
+                    </f:facet>
+                    <p:column headerText="Empresa" filterBy="#{cliente.empresa}"
+                              sortBy="#{cliente.empresa}" colspan="1">
+                        <h:outputText value="#{cliente.empresa}" />
+                    </p:column>
+
+                    <p:column headerText="Telefone" filterBy="#{cliente.tel}"
+                              sortBy="#{cliente.tel}">
+                        <h:outputText value="#{cliente.tel}" />
+                    </p:column>
+
+                    <p:column headerText="Bairro" filterBy="#{cliente.bairro}"
+                              sortBy="#{cliente.bairro}">
+                        <h:outputText value="#{cliente.bairro}" />
+                    </p:column>
+                    
+                    <p:column headerText="Cidade" filterBy="#{cliente.cidade}"
+                              sortBy="#{cliente.cidade}">
+                        <h:outputText value="#{cliente.cidade}" />
+                    </p:column>
+                 
+                    <p:column headerText="Contrato" filterBy="#{cliente.data_c}"
+                              sortBy="#{cliente.data_c}">
+                        <h:outputText value="#{cliente.data_c}" />
+                    </p:column>
+
+                    <p:column headerText="Opções" exportable="false">
+                        <p:commandButton icon="ui-icon-trash"
+                                         actionListener="#{clienteBean.excluir}"
+                                         update=":mensagem :formListagem:tabela">
+                            <p:confirm header="Confirmação" message="Deseja excluir o cliente"
+                                       icon="ui-icon-alert" />
+                            <f:attribute name="clienteSelecionado" value="#{cliente}" />
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-pencil"
+                                         actionListener="#{clienteBean.editar}"
+                                         update=":mensagem :formCadastro:painel"
+                                         oncomplete="PF('dialogo').show();">
+                            <f:attribute name="clienteSelecionado" value="#{cliente}" />
+                            <f:actionListener
+                                type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                        </p:commandButton>
+                        
+                        <p:commandButton icon="ui-icon-info"
+                                         actionListener="#{clienteBean.editar}"
+                                         update=":mensagem :formListagem:tabela"
+                                         oncomplete="PF('dlgVisu').show();">
+                            <f:attribute name="clienteSelecionado" value="#{cliente}" />
+                            <f:actionListener
+                                type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+            <p:confirmDialog global="true">
+                <p:commandButton value="Sim" type="button"
+                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="Não" type="button"
+                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>
+
+        <p:dialog header="Cliente - Cadastro" widgetVar="dialogo"
+                  draggable="false" resizable="false" modal="true" closable="false"
+                  appendTo="@(body)" showEffect="clip" responsive="true" dynamic="true">
+
+            <h:form id="formCadastro">
+                <h:panelGrid id="painel" columns="2">
+                    <p:outputLabel for="nome" value="Empresa:" />
+                    <p:inputText id="nome" maxlength="50" size="30"
+                                 value="#{clienteBean.cliente.empresa}" required="true"
+                                 requiredMessage="O campo 'Empresa' é obrigatório" />
+                  
+                    <p:outputLabel for="tel" value="Telefone:"/>
+                    <p:inputMask id="tel" mask="(99) 9999-9999" value="#{clienteBean.cliente.tel}" />
+
+                    <p:outputLabel for="rua" value="Rua:" />
+                    <p:inputText id="rua" maxlength="80" size="30"
+                                 value="#{clienteBean.cliente.rua}" required="true"
+                                 requiredMessage="O campo 'Bairro' é obrigatório" />
+                    
+                    <p:outputLabel for="bairro" value="Bairro:" />
+                    <p:inputText id="bairro" maxlength="50" size="30"
+                                 value="#{clienteBean.cliente.bairro}" required="true"
+                                 requiredMessage="O campo 'Bairro' é obrigatório" />
+                  
+                    <p:outputLabel for="cidade" value="Cidade:" />
+                    <p:inputText id="cidade" maxlength="50" size="30"
+                                 value="#{clienteBean.cliente.cidade}" required="true"
+                                 requiredMessage="O campo 'Cidade' é obrigatório" />
+                 
+                    <p:outputLabel for="dia" value="Data do Contrato:" />
+                    <p:calendar id="dia" value="#{clienteBean.cliente.data_c}" pattern="yyyy-MM-dd" mask="true" 
+                                locale="pt_BR" mindate="2014-01-01" required="true" requiredMessage="O campo data é obrigatório"/>        
+                   
+                <p:outputLabel for="usuario" value="Usuario:"/>
+                <p:selectOneMenu id="usuario"
+                                 value="#{clienteBean.cliente.usuario}"
+                                     filter="true" required="true"
+                                     requiredMessage="O campo usuario é obrigatório "
+                                     converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem noSelectionOption="true"
+                                      itemLabel="Usuarios:"/>
+                        <f:selectItems value="#{clienteBean.usuarios}" var="user" itemValue="#{user}"
+                                       itemLabel="#{user.nome}, Login: #{user.login}"/>                      
+                    </p:selectOneMenu>
+                
+                <p:fileUpload value="#{clienteBean.contrato}" mode="simple" skinSimple="true" />
+                </h:panelGrid>
+                
+
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Salvar"
+                                     actionListener="#{clienteBean.salvar}"
+                                     update=":mensagem :formCadastro:painel :formListagem:tabela" />
+
+                    <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+        <p:dialog header="Clientes" widgetVar="dlgVisu" draggable="false"
+                  resizable="false" modal="true" closable="false" appendTo="@(body)"
+                  showEffect="clip" responsive="true" dynamic="true">
+            <h:form id="formVisu">
+
+                <h:panelGrid id="painel" columns="2">
+                    <p:outputLabel for="nome" value="Empresa:" style="font-weight: bold" />
+                    <h:outputText id="nome" value="#{clienteBean.cliente.empresa}" />
+                   
+                    <p:outputLabel for="telFixo" value="Tel Fixo:"
+                                   style="font-weight: bold" />
+                    <h:outputText id="telFixo" value="#{clienteBean.cliente.tel}" />
+
+                    <p:outputLabel for="rua" value="Rua:"
+                                   style="font-weight: bold" />
+                    <h:outputText id="rua" value="#{clienteBean.cliente.rua}" />
+                    
+                    <p:outputLabel for="bairro" value="Bairro:"
+                                   style="font-weight: bold" />
+                    <h:outputText id="bairro" value="#{clienteBean.cliente.bairro}" />
+                    
+                    <p:outputLabel for="cidade" value="Cidade:"
+                                   style="font-weight: bold" />
+                    <h:outputText id="cidade" value="#{clienteBean.cliente.cidade}" />
+                   
+                    <p:outputLabel for="data" value="Data Contrato:"
+                                   style="font-weight: bold" />
+                    <h:outputText id="data" value="#{clienteBean.cliente.data_c}" />
+                    
+                    <p:outputLabel for="usuarios" value="Usuarios:"
+                                   style="font-weight: bold" />
+                    <h:outputText id="usuarios" value="#{clienteBean.cliente.usuario.nome}" />
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Fechar" oncomplete="PF('dlgVisu').hide();" />
+                    <p:commandButton value="Imprimir" type="button"
+                                     icon="ui-icon-print">
+                        <p:printer target="formVisu" />
+                    </p:commandButton>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
