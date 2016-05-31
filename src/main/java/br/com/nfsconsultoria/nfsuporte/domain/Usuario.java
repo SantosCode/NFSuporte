@@ -22,16 +22,16 @@ public class Usuario extends GenericDomain{
     @Column(length = 15)
     private String tel;
     
-    @Column(length = 15)
+    @Column(length = 45)
     private String email;
     
-    @Column(nullable = false, length = 10, unique = true)
+    @Column(nullable = false, length = 45, unique = true)
     private String login;
     
     @Column(nullable = false, length = 10)
     private String senha;
     
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 45)
     private String nivel;
 
     public String getNome() {

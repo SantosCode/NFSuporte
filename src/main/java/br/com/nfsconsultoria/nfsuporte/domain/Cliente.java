@@ -5,10 +5,13 @@
  */
 package br.com.nfsconsultoria.nfsuporte.domain;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -18,8 +21,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Cliente extends GenericDomain{
     
-    @Column(nullable = false,length = 15, unique = true)
-    private String nome;
+    @Column(nullable = false,length = 45, unique = true)
+    private String empresa;
     
     @Column(length = 15)
     private String tel;
@@ -27,25 +30,29 @@ public class Cliente extends GenericDomain{
     @Column(length = 80)
     private String rua;
     
-    @Column(length = 30)
+    @Column(length = 45)
     private String bairro;
     
-    @Column(length = 15)
+    @Column(length = 45)
     private String cidade;
     
-    @Column(columnDefinition = "byte")
-    private byte contrato;
+    @Temporal(TemporalType.DATE)
+    @Column
+   private Date data_c;
+    
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] contrato;
     
     @ManyToOne
     @JoinColumn(nullable = true)
     private Usuario usuario;
 
-    public String getNome() {
-        return nome;
+    public String getEmpresa() {
+        return empresa;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
 
     public String getTel() {
@@ -80,11 +87,19 @@ public class Cliente extends GenericDomain{
         this.cidade = cidade;
     }
 
-    public byte getContrato() {
+    public Date getData_c() {
+        return data_c;
+    }
+
+    public void setData_c(Date data_c) {
+        this.data_c = data_c;
+    }
+
+    public byte[] getContrato() {
         return contrato;
     }
 
-    public void setContrato(byte contrato) {
+    public void setContrato(byte[] contrato) {
         this.contrato = contrato;
     }
 
@@ -95,6 +110,6 @@ public class Cliente extends GenericDomain{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
     
 }

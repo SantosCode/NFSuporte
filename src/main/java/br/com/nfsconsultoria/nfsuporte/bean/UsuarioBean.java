@@ -8,6 +8,7 @@ package br.com.nfsconsultoria.nfsuporte.bean;
 import br.com.nfsconsultoria.nfsuporte.dao.UsuarioDAO;
 import br.com.nfsconsultoria.nfsuporte.domain.Usuario;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import javax.faces.event.ActionEvent;
 import javax.annotation.PostConstruct;
@@ -46,6 +47,12 @@ public class UsuarioBean implements Serializable{
 
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
+    }
+    
+     public List<String> getNiveis() {
+        String[] nivel = new String[]{"Administrador", "Usuario", "Cliente"};
+        return Arrays.asList(nivel);
+  
     }
     @PostConstruct
     public void listar(){

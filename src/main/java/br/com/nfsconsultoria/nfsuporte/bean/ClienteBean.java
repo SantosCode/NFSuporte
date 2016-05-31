@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -29,6 +30,7 @@ public class ClienteBean implements Serializable{
     private Cliente cliente;
     private List<Cliente> clientes;
     private List<Usuario> usuarios;
+    private UploadedFile contrato;
 
     public ClienteBean() {
         ClienteDAO clienteDAO = new ClienteDAO();
@@ -36,7 +38,7 @@ public class ClienteBean implements Serializable{
         this.clientes = clienteDAO.listar();
         this.usuarios = usuarioDAO.listarLazy("usuario");
     }
-
+    
     public Cliente getCliente() {
         return cliente;
     }
@@ -51,6 +53,14 @@ public class ClienteBean implements Serializable{
 
     public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
+    }
+
+    public UploadedFile getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(UploadedFile contrato) {
+        this.contrato = contrato;
     }
 
     public List<Usuario> getUsuarios() {
@@ -73,7 +83,7 @@ public class ClienteBean implements Serializable{
                     +erro.getMessage()+ " ao tentar listar clientes");
         }
     }
-    
+     
     public void novo(){
         this.cliente = new Cliente();
     }
@@ -81,6 +91,11 @@ public class ClienteBean implements Serializable{
     public void salvar(){
         try {
             ClienteDAO clienteDAO = new ClienteDAO();
+            if (contrato != null) {
+                cliente.setContrato(contrato.getContents());
+            System.out.println(contrato.getFileName());
+                Messages.addGlobalInfo("Contrato salvo com sucesso");
+            }
             clienteDAO.merge(cliente);
             listar();
             novo();
@@ -88,6 +103,7 @@ public class ClienteBean implements Serializable{
         } catch (RuntimeException erro) {
             Messages.addGlobalError("Ocorreu o erro " 
                     +erro.getMessage()+ " ao tentar salvar cliente");
+            erro.printStackTrace();
         }
     }
     

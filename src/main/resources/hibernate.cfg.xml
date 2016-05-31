@@ -4,19 +4,19 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://192.168.200.6:3306/NFSuporte</property>
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.username">aptech</property>
-        <property name="connection.password">Aptech2016</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://192.168.200.6:3306/NFSuporte</property>
+        <property name="hibernate.connection.username">aptech</property>
+        <property name="hibernate.connection.password">Aptech2016</property>
         <!-- DB schema will be updated if needed -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- Sessão -->
-        <property name="current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext
+        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext
         </property>
         <!-- SQL Dialeto -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
         <!-- Cache de segundo Nivel -->
-        <property name="cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
+        <property name="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
         <!-- Mostra as SQLs geradas -->
         <property name="show_sql">true</property>
         <!-- Mapeamento de Entidades -->
@@ -27,3 +27,4 @@
         
     </session-factory>
 </hibernate-configuration>
+

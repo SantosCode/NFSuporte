@@ -6,8 +6,9 @@
     <artifactId>NFSuporte</artifactId>
     <version>1.0-BETA</version>
     <packaging>war</packaging>
-
+    
     <name>NFSuporte</name>
+    <description>Sistema de abertura de incidentes</description>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -15,6 +16,8 @@
     </properties>
    
     <build>
+        <!-- Nome do projeto empacotado -->
+        <finalName>NFSuporte</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -76,7 +79,11 @@
     
     <!-- Dependências -->
     <dependencies>
-        
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.1.Final</version>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -96,24 +103,23 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.2</version>
+            <version>5.1.38</version>
         </dependency>
         
         <!-- JSF -->
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.faces</artifactId>
-            <version>2.3.0-m05</version>
+            <version>2.2.12</version>
             <type>jar</type>
         </dependency>
         
         <!-- Prime Faces -->
-        <dependency>
+         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>5.3</version>
         </dependency>
-        
         <!-- Prime Faces Themes -->
         <dependency>
             <groupId>org.primefaces.themes</groupId>
@@ -125,7 +131,7 @@
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
-            <version>2.3</version>
+            <version>1.13</version>
         </dependency>
         
         <!-- Commons Mail -->
@@ -139,14 +145,14 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.0-b01</version>
+            <version>3.1.0</version>
         </dependency>
         
         <!-- Apache Shiro Core -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
-            <version>1.2.4</version>
+            <version>1.2.5</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
