@@ -132,7 +132,19 @@
                                        itemLabel="#{user.nome}, Login: #{user.login}"/>
                     </p:selectOneMenu>
 
-                    <p:fileUpload valueChangeListener="#{clienteBean.upFile}" mode="simple" skinSimple="true"/>
+                    <p:outputLabel for="contrato" value="Contrato:"/>
+                    <p:fileUpload id="contrato" fileUploadListener="#{clienteBean.FileUp}"
+                                  allowTypes="/(\.|\/)(pdf)$/" sizeLimit="1000000"
+                                  description="Select Images" mode="advanced" skinSimple="true"
+                                  update="message"/>
+
+                    <p:outputLabel for="topologia" value="Topologia:"/>
+                    <p:fileUpload id="topologia" fileUploadListener="#{clienteBean.FileTopUp}"
+                                  allowTypes="/(\.|\/)(png|jpe?g)$/" sizeLimit="1000000"
+                                  description="Select Images" mode="advanced" skinSimple="true"
+                                  update="message"/>
+
+                    <p:growl id="message" showDetail="true"/>
                 </h:panelGrid>
 
 
@@ -177,6 +189,18 @@
                     <p:outputLabel for="usuarios" value="Usuarios:"
                                    style="font-weight: bold"/>
                     <h:outputText id="usuarios" value="#{clienteBean.cliente.usuario.nome}"/>
+
+                    <p:outputLabel for="Vcontrato" value="Contrato:"/>
+                    <p:commandButton id="Vcontrato" value="Download" ajax="false"
+                                     icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="#{clienteBean.content(clienteBean.cliente.contrato)}"/>
+                    </p:commandButton>
+
+                    <p:outputLabel for="Vtopologia" value="Topologia:"/>
+                    <p:commandButton id="Vtopologia" value="Download" ajax="false"
+                                     icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="#{clienteBean.content(clienteBean.cliente.topologia)}"/>
+                    </p:commandButton>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">

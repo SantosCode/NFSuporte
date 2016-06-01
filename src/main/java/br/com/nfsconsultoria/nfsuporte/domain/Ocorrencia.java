@@ -15,10 +15,13 @@ import java.util.Date;
 @Entity
 public class Ocorrencia extends GenericDomain {
 
+    @Column(nullable = false, unique = true)
+    private Long chamado;
+
     @Column(nullable = false, length = 45)
     private String tipo;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 300)
     private String descricao;
 
     @ManyToOne
@@ -41,8 +44,16 @@ public class Ocorrencia extends GenericDomain {
     @Column
     private Date data_enc;
 
-    @Column(length = 100)
+    @Column(length = 600)
     private String solucao;
+
+    public Long getChamado() {
+        return chamado;
+    }
+
+    public void setChamado(Long chamado) {
+        this.chamado = chamado;
+    }
 
     public String getTipo() {
         return tipo;

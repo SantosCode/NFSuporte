@@ -37,6 +37,9 @@ public class Cliente extends GenericDomain {
     @Column(columnDefinition = "LONGBLOB")
     private byte[] contrato;
 
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] topologia;
+
     @ManyToOne
     @JoinColumn(nullable = true)
     private Usuario usuario;
@@ -95,6 +98,14 @@ public class Cliente extends GenericDomain {
 
     public void setContrato(byte[] contrato) {
         this.contrato = contrato;
+    }
+
+    public byte[] getTopologia() {
+        return topologia;
+    }
+
+    public void setTopologia(byte[] topologia) {
+        this.topologia = topologia;
     }
 
     public Usuario getUsuario() {

@@ -9,17 +9,22 @@ import br.com.nfsconsultoria.nfsuporte.dao.ClienteDAO;
 import br.com.nfsconsultoria.nfsuporte.dao.UsuarioDAO;
 import br.com.nfsconsultoria.nfsuporte.domain.Cliente;
 import br.com.nfsconsultoria.nfsuporte.domain.Usuario;
+import org.apache.poi.util.IOUtils;
 import org.omnifaces.util.Messages;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -34,7 +39,6 @@ public class ClienteBean implements Serializable {
     private Cliente cliente;
     private List<Cliente> clientes;
     private List<Usuario> usuarios;
-    private UploadedFile contrato;
 
     public ClienteBean() {
         ClienteDAO clienteDAO = new ClienteDAO();
@@ -59,14 +63,6 @@ public class ClienteBean implements Serializable {
         this.clientes = clientes;
     }
 
-    public UploadedFile getContrato() {
-        return contrato;
-    }
-
-    public void setContrato(UploadedFile contrato) {
-        this.contrato = contrato;
-    }
-
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
@@ -74,6 +70,7 @@ public class ClienteBean implements Serializable {
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+
 
     @PostConstruct
     public void listar() {
@@ -88,19 +85,47 @@ public class ClienteBean implements Serializable {
         }
     }
 
-    public void upFile(FileUploadEvent evento) {
+    /* Metodo para fazer o upload do contrato do cliente para o banco de dados */
+    public void FileUp(FileUploadEvent evento) {
         try {
-            String nome = evento.getFile().getFileName();
-            FileOutputStream file = new FileOutputStream(nome);
-            file.write(evento.getFile().getContents());
-            file.flush();
-            file.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            FacesMessage message = new FacesMessage("Contrato",
+                    evento.getFile().getFileName() + " carregado com sucesso");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            UploadedFile contrato = evento.getFile();
+            byte[] arquivo = (IOUtils.toByteArray(contrato.getInputstream()));
+            this.cliente.setContrato(arquivo);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void FileTopUp(FileUploadEvent evento) {
+        try {
+            FacesMessage message = new FacesMessage("Topologia",
+                    evento.getFile().getFileName() + " carregado com sucesso");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            UploadedFile contrato = evento.getFile();
+            byte[] arquivo = (IOUtils.toByteArray(contrato.getInputstream()));
+            this.cliente.setTopologia(arquivo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* Metodo para fazer o download do contrato no banco de dados para a maquina */
+    public StreamedContent content(byte[] bytes) {
+        try {
+
+            InputStream is = new ByteArrayInputStream(bytes);
+            StreamedContent arquivo = new DefaultStreamedContent(is);
+            return arquivo;
+        } catch (RuntimeException e) {
+            Messages.addGlobalError("Não foi possivel fazer o download do arquivo");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public void novo() {
         this.cliente = new Cliente();
@@ -109,7 +134,6 @@ public class ClienteBean implements Serializable {
     public void salvar() {
         try {
             ClienteDAO clienteDAO = new ClienteDAO();
-
             clienteDAO.merge(cliente);
             listar();
             novo();
@@ -146,4 +170,5 @@ public class ClienteBean implements Serializable {
             erro.printStackTrace();
         }
     }
+
 }

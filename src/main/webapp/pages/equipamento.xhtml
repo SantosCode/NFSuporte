@@ -10,13 +10,14 @@
 
     <ui:define name="conteudo">
         <h:form id="formListagem">
-            <p:panel header="Usuarios">
-                <p:dataTable id="tabela" emptyMessage="Nenhum usuario encontrado." var="usuario" paginator="true"
-                             value="#{usuarioBean.usuarios}" rows="10" paginatorPosition="top" rendered="true"
+            <p:panel header="Equipamentos">
+                <p:dataTable id="tabela" emptyMessage="Nenhum equipamento encontrado." var="equipamento"
+                             paginator="true"
+                             value="#{equipamentoBean.equipamentos}" rows="10" paginatorPosition="top" rendered="true"
                              liveResize="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}">
                     <f:facet name="header">
-                        <p:commandButton value="Novo Cadastro" actionListener="#{usuarioBean.novo}"
+                        <p:commandButton value="Novo Cadastro" actionListener="#{equipamentoBean.novo}"
                                          oncomplete="PF('dialogo').show();"
                                          update=":mensagem :formCadastro:painel">
                             <f:actionListener
@@ -24,49 +25,44 @@
                         </p:commandButton>
 
                     </f:facet>
-                    <p:column headerText="Nome" filterBy="#{usuario.nome}"
-                              sortBy="#{usuario.nome}" colspan="1">
-                        <h:outputText value="#{usuario.nome}"/>
+                    <p:column headerText="Descrição" filterBy="#{equipamento.descricao}"
+                              sortBy="#{equipamento.descricao}" colspan="1">
+                        <h:outputText value="#{equipamento.descricao}"/>
                     </p:column>
 
-                    <p:column headerText="E-mail" filterBy="#{usuario.email}"
-                              sortBy="#{usuario.email}" colspan="2">
-                        <h:outputText value="#{usuario.email}"/>
+                    <p:column headerText="Tipo" filterBy="#{equipamento.tipo}"
+                              sortBy="#{equipamento.tipo}" colspan="2">
+                        <h:outputText value="#{equipamento.tipo}"/>
                     </p:column>
 
-                    <p:column headerText="Telefone" filterBy="#{usuario.tel}"
-                              sortBy="#{usuario.tel}">
-                        <h:outputText value="#{usuario.tel}"/>
-                    </p:column>
-
-                    <p:column headerText="Login" filterBy="#{usuario.login}"
-                              sortBy="#{usuario.login}">
-                        <h:outputText value="#{usuario.login}"/>
+                    <p:column headerText="Cliente" filterBy="#{equipamento.cliente.empresa}"
+                              sortBy="#{equipamento.cliente.empresa}">
+                        <h:outputText value="#{equipamento.cliente.empresa}"/>
                     </p:column>
 
                     <p:column headerText="Opções" exportable="false">
                         <p:commandButton icon="ui-icon-trash"
-                                         actionListener="#{usuarioBean.excluir}"
+                                         actionListener="#{equipamentoBean.excluir}"
                                          update=":mensagem :formListagem:tabela">
-                            <p:confirm header="Confirmação" message="Deseja excluir o usuario"
+                            <p:confirm header="Confirmação" message="Deseja excluir o equipameto"
                                        icon="ui-icon-alert"/>
-                            <f:attribute name="usuarioSelecionado" value="#{usuario}"/>
+                            <f:attribute name="equipamentoSelecionado" value="#{equipamento}"/>
                         </p:commandButton>
 
                         <p:commandButton icon="ui-icon-pencil"
-                                         actionListener="#{usuarioBean.editar}"
+                                         actionListener="#{equipamentoBean.editar}"
                                          update=":mensagem :formCadastro:painel"
                                          oncomplete="PF('dialogo').show();">
-                            <f:attribute name="usuarioSelecionado" value="#{usuario}"/>
+                            <f:attribute name="equipamentoSelecionado" value="#{equipamento}"/>
                             <f:actionListener
                                     type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
                         </p:commandButton>
 
                         <p:commandButton icon="ui-icon-info"
-                                         actionListener="#{usuarioBean.editar}"
+                                         actionListener="#{equipamentoBean.editar}"
                                          update=":mensagem :formListagem:tabela"
                                          oncomplete="PF('dlgVisu').show();">
-                            <f:attribute name="usuarioSelecionado" value="#{usuario}"/>
+                            <f:attribute name="equipamentoSelecionado" value="#{equipamento}"/>
                             <f:actionListener
                                     type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
                         </p:commandButton>
@@ -81,76 +77,61 @@
             </p:confirmDialog>
         </h:form>
 
-        <p:dialog header="Usuarios - Cadastro" widgetVar="dialogo"
+        <p:dialog header="Equipamentos - Cadastro" widgetVar="dialogo"
                   draggable="false" resizable="false" modal="true" closable="false"
                   appendTo="@(body)" showEffect="clip" responsive="true" dynamic="true">
 
             <h:form id="formCadastro">
                 <h:panelGrid id="painel" columns="2">
-                    <p:outputLabel for="nome" value="Nome:"/>
-                    <p:inputText id="nome" maxlength="50" size="30"
-                                 value="#{usuarioBean.usuario.nome}" required="true"
-                                 requiredMessage="O campo 'Nome' é obrigatório"/>
+                    <p:outputLabel for="desc" value="Descrição:"/>
+                    <p:inputText id="desc" maxlength="50" size="30"
+                                 value="#{equipamentoBean.equipamento.descricao}" required="true"
+                                 requiredMessage="O campo 'Descrição' é obrigatório"/>
 
-                    <p:outputLabel for="email" value="E-mail:"/>
-                    <p:inputText id="email" maxlength="50" size="30"
-                                 value="#{usuarioBean.usuario.email}" required="true"
-                                 requiredMessage="O campo 'E-mail' é obrigatório"/>
+                    <p:outputLabel for="tipo" value="Tipo:"/>
+                    <p:inputText id="tipo" maxlength="50" size="30" autocomplete="true"
+                                 value="#{equipamentoBean.equipamento.tipo}" required="true"
+                                 requiredMessage="O campo 'Tipo' é obrigatório"/>
 
-                    <p:outputLabel for="tel" value="Tel:"/>
-                    <p:inputMask id="tel" mask="(99) 9999-9999" value="#{usuarioBean.usuario.tel}"/>
-
-                    <p:outputLabel for="login" value="Login:"/>
-                    <p:inputText id="login" maxlength="50" size="30"
-                                 value="#{usuarioBean.usuario.login}" required="true"
-                                 requiredMessage="O campo 'Login' é obrigatório"/>
-
-                    <p:outputLabel for="senha" value="Senha:"/>
-                    <p:password id="senha" value="#{usuarioBean.usuario.senha}" feedback="true"
-                                promptLabel="Digite uma senha forte" weakLabel="Senha Fraca" goodLabel="Senha média"
-                                strongLabel="Senha Forte"/>
-
-                    <p:outputLabel for="idNivel" value="Nivel:"/>
-                    <p:selectOneMenu id="idNivel"
-                                     value="#{usuarioBean.usuario.nivel}"
+                    <p:outputLabel for="cliente" value="Cliente:"/>
+                    <p:selectOneMenu id="cliente"
+                                     value="#{equipamentoBean.equipamento.cliente}"
                                      filter="true" required="true"
-                                     requiredMessage="O campo nivel é obrigatório "
+                                     requiredMessage="O campo cliente é obrigatório "
                                      converter="omnifaces.SelectItemsConverter">
                         <f:selectItem noSelectionOption="true"
-                                      itemLabel="Nivel de aceso:"/>
-                        <f:selectItems value="#{usuarioBean.niveis}" var="idNivel" itemValue="#{idNivel}"/>
+                                      itemLabel="Cliente"/>
+                        <f:selectItems value="#{equipamentoBean.clientes}" var="cliente" itemValue="#{cliente}"
+                                       itemLabel="#{cliente.empresa}"/>
                     </p:selectOneMenu>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
                     <p:commandButton value="Salvar"
-                                     actionListener="#{usuarioBean.salvar}"
+                                     actionListener="#{equipamentoBean.salvar}"
                                      update=":mensagem :formCadastro:painel :formListagem:tabela"/>
 
                     <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
                 </h:panelGrid>
             </h:form>
         </p:dialog>
-        <p:dialog header="Usuario" widgetVar="dlgVisu" draggable="false"
+        <p:dialog header="Equipamento" widgetVar="dlgVisu" draggable="false"
                   resizable="false" modal="true" closable="false" appendTo="@(body)"
                   showEffect="clip" responsive="true" dynamic="true">
             <h:form id="formVisu">
 
                 <h:panelGrid id="Vpainel" columns="2">
-                    <p:outputLabel for="Vnome" value="Nome:" style="font-weight: bold"/>
-                    <h:outputText id="Vnome" value="#{usuarioBean.usuario.nome}"/>
+                    <p:outputLabel for="Vdesc" value="Descrição:" style="font-weight: bold"/>
+                    <h:outputText id="Vdesc" value="#{equipamentoBean.equipamento.descricao}"/>
 
-                    <p:outputLabel for="Vemail" value="E-mail:"
+                    <p:outputLabel for="Vtipo" value="Tipo:"
                                    style="font-weight: bold"/>
-                    <h:outputText id="Vemail" value="#{usuarioBean.usuario.email}"/>
+                    <h:outputText id="Vtipo" value="#{equipamentoBean.equipamento.tipo}"/>
 
-                    <p:outputLabel for="VtelFixo" value="Tel Fixo:"
+                    <p:outputLabel for="Vcliente" value="Cliente:"
                                    style="font-weight: bold"/>
-                    <h:outputText id="VtelFixo" value="#{usuarioBean.usuario.tel}"/>
+                    <h:outputText id="Vcliente" value="#{equipamentoBean.equipamento.cliente.empresa}"/>
 
-                    <p:outputLabel for="Vlogin" value="Login:"
-                                   style="font-weight: bold"/>
-                    <h:outputText id="Vlogin" value="#{usuarioBean.usuario.login}"/>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
