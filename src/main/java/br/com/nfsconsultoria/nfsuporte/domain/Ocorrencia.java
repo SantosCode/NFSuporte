@@ -15,6 +15,7 @@ import java.util.Date;
 @Entity
 public class Ocorrencia extends GenericDomain {
 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable = false, unique = true)
     private Long chamado;
 

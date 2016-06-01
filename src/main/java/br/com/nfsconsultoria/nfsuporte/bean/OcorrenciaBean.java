@@ -18,6 +18,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -92,6 +97,19 @@ public class OcorrenciaBean implements Serializable {
     public void salvar() {
         try {
             OcorrenciaDAO ocorrenciaDAO = new OcorrenciaDAO();
+            List<Integer> numeros = new ArrayList<Integer>();
+            //Pega a data atual
+            SimpleDateFormat data = new SimpleDateFormat("yyyyMMdd");
+            int hoje = Integer.parseInt(data.format(new Date(System.currentTimeMillis())));
+            for (int i = 1; i < 61; i++) {
+                numeros.add(i);
+            }
+            //Embaralhamos os números:
+            Collections.shuffle(numeros);
+            //Mostramos 4 aleatórios
+            for (int i = 0; i < 4; i++) {
+               ocorrencia.setChamado(Long.valueOf(hoje + numeros.get(i)));
+            }
             ocorrenciaDAO.merge(ocorrencia);
             listar();
             novo();

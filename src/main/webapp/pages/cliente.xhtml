@@ -135,13 +135,13 @@
                     <p:outputLabel for="contrato" value="Contrato:"/>
                     <p:fileUpload id="contrato" fileUploadListener="#{clienteBean.FileUp}"
                                   allowTypes="/(\.|\/)(pdf)$/" sizeLimit="1000000"
-                                  description="Select Images" mode="advanced" skinSimple="true"
+                                  mode="advanced" skinSimple="true"
                                   update="message"/>
 
                     <p:outputLabel for="topologia" value="Topologia:"/>
                     <p:fileUpload id="topologia" fileUploadListener="#{clienteBean.FileTopUp}"
                                   allowTypes="/(\.|\/)(png|jpe?g)$/" sizeLimit="1000000"
-                                  description="Select Images" mode="advanced" skinSimple="true"
+                                  mode="advanced" skinSimple="true"
                                   update="message"/>
 
                     <p:growl id="message" showDetail="true"/>
