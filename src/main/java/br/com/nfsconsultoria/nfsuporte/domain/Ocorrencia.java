@@ -22,8 +22,11 @@ public class Ocorrencia extends GenericDomain {
     @Column(nullable = false, length = 45)
     private String tipo;
 
-    @Column(nullable = false, length = 300)
+    @Column(nullable = false, length = 100)
     private String descricao;
+    
+    @Column(nullable = false, length = 300)
+    private String problema;
 
     @ManyToOne
     @JoinColumn
@@ -47,6 +50,9 @@ public class Ocorrencia extends GenericDomain {
 
     @Column(length = 600)
     private String solucao;
+    
+    @Column(nullable = false, length = 20)
+    private String status;
 
     public Long getChamado() {
         return chamado;
@@ -70,6 +76,14 @@ public class Ocorrencia extends GenericDomain {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getProblema() {
+        return problema;
+    }
+
+    public void setProblema(String problema) {
+        this.problema = problema;
     }
 
     public Cliente getCliente() {
@@ -118,5 +132,13 @@ public class Ocorrencia extends GenericDomain {
 
     public void setSolucao(String solucao) {
         this.solucao = solucao;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

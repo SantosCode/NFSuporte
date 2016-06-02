@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -78,7 +79,12 @@ public class OcorrenciaBean implements Serializable {
     public void setEquipamentos(List<Equipamento> equipamentos) {
         this.equipamentos = equipamentos;
     }
-
+    
+    public List<String> getTipo() {
+        String[] nivel = new String[]{"Incidente", "Solicitação", "Projeto", "Visita", "Consultoria"};
+        return Arrays.asList(nivel);
+    }
+    
     @PostConstruct
     public void listar() {
         try {

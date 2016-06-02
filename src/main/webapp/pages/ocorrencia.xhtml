@@ -102,39 +102,78 @@
 
             <h:form id="formCadastro">
                 <h:panelGrid id="painel" columns="2">
-                    <p:outputLabel for="nome" value="Nome:"/>
-                    <p:inputText id="nome" maxlength="50" size="30"
-                                 value="#{usuarioBean.usuario.nome}" required="true"
-                                 requiredMessage="O campo 'Nome' é obrigatório"/>
+                    <p:outputLabel for="chamado" value="Chamado:"/>
+                    <p:inputText id="chamado" maxlength="50" size="30"
+                                 value="#{ocorrenciaBean.ocorrencia.chamado}" required="false"
+                                 disabled="true" requiredMessage="O campo 'Nome' é obrigatório"/>
 
-                    <p:outputLabel for="email" value="E-mail:"/>
-                    <p:inputText id="email" maxlength="50" size="30"
-                                 value="#{usuarioBean.usuario.email}" required="true"
-                                 requiredMessage="O campo 'E-mail' é obrigatório"/>
-
-                    <p:outputLabel for="tel" value="Tel:"/>
-                    <p:inputMask id="tel" mask="(99) 9999-9999" value="#{usuarioBean.usuario.tel}"/>
-
-                    <p:outputLabel for="login" value="Login:"/>
-                    <p:inputText id="login" maxlength="50" size="30"
-                                 value="#{usuarioBean.usuario.login}" required="true"
-                                 requiredMessage="O campo 'Login' é obrigatório"/>
-
-                    <p:outputLabel for="senha" value="Senha:"/>
-                    <p:password id="senha" value="#{usuarioBean.usuario.senha}" feedback="true"
-                                promptLabel="Digite uma senha forte" weakLabel="Senha Fraca" goodLabel="Senha média"
-                                strongLabel="Senha Forte"/>
-
-                    <p:outputLabel for="idNivel" value="Nivel:"/>
-                    <p:selectOneMenu id="idNivel"
-                                     value="#{usuarioBean.usuario.nivel}"
+                    <p:outputLabel for="tipo" value="Tipo:"/>
+                    <p:selectOneMenu id="tipo"
+                                     value="#{ocorrenciaBean.ocorrencia.tipo}"
                                      filter="true" required="true"
-                                     requiredMessage="O campo nivel é obrigatório "
+                                     requiredMessage="O campo Tipo é obrigatório "
                                      converter="omnifaces.SelectItemsConverter">
                         <f:selectItem noSelectionOption="true"
-                                      itemLabel="Nivel de aceso:"/>
-                        <f:selectItems value="#{usuarioBean.niveis}" var="idNivel" itemValue="#{idNivel}"/>
+                                      itemLabel="Tipo de Ocorrência"/>
+                        <f:selectItems value="#{ocorrenciaBean.tipo}" var="tipo" itemValue="#{tipo}"/>
                     </p:selectOneMenu>
+
+                    <p:outputLabel for="desc" value="Descrição:"/>
+                    <p:inputText id="desc" maxlength="100" size="50"
+                                 value="#{ocorrenciaBean.ocorrencia.descricao}" required="true"
+                                 requiredMessage="O campo descrição é obrigatório"/>
+
+                    <p:outputLabel for="prob" value="Problema:"/>
+                    <p:inputTextarea id="prob" maxlength="300" rendered="true"
+                                     value="#{ocorrenciaBean.ocorrencia.problema}" autoResize="true" 
+                                 requiredMessage="O campo solução é obrigatório"/>
+
+                    <p:outputLabel for="cliente" value="Cliente:"/>
+                    <p:selectOneMenu id="cliente"
+                                     value="#{ocorrenciaBean.ocorrencia.cliente}"
+                                     filter="true" required="true"
+                                     requiredMessage="O campo cliente é obrigatório "
+                                     converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem noSelectionOption="true"
+                                      itemLabel="Cliente"/>
+                        <f:selectItems value="#{ocorrenciaBean.clientes}" var="cliente" itemValue="#{cliente}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel for="equip" value="Equipamento:"/>
+                    <p:selectOneMenu id="equip"
+                                     value="#{ocorrenciaBean.ocorrencia.equipamento}"
+                                     filter="true" required="true"
+                                     requiredMessage="O campo equipamento é obrigatório "
+                                     converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem noSelectionOption="true"
+                                      itemLabel="Equipamento"/>
+                        <f:selectItems value="#{ocorrenciaBean.equipamentos}" var="equip" itemValue="#{equip}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel for="data_ab" value="Data Abertura:"/>
+                    <p:calendar id="data_ab" value="#{ocorrenciaBean.ocorrencia.data_ab}" 
+                                pattern="yyyy-MM-dd HH:mm" mask="true" 
+                                locale="pt_BR" mindate="2014-01-01" required="true" 
+                                requiredMessage="O campo data de abertura é obrigatório"/>
+                   
+                    <p:outputLabel for="data_at" value="Data Atendimento:"/>
+                    <p:calendar id="data_at" value="#{ocorrenciaBean.ocorrencia.data_at}" 
+                                pattern="yyyy-MM-dd HH:mm" mask="true" 
+                                locale="pt_BR" mindate="2014-01-01" required="true" 
+                                requiredMessage="O campo data de atendimento é obrigatório"/>
+                    
+                    <p:outputLabel for="data_ec" value="Data Encerramento:"/>
+                    <p:calendar id="data_ec" value="#{ocorrenciaBean.ocorrencia.data_enc}" 
+                                pattern="yyyy-MM-dd HH:mm" mask="true" 
+                                locale="pt_BR" mindate="2014-01-01" required="true" 
+                                requiredMessage="O campo data de encerramento é obrigatório"/>
+                    
+                    <p:outputLabel for="solu" value="Solução:"/>
+                    <p:inputTextarea id="prob" maxlength="300" rendered="true"
+                                     value="#{ocorrenciaBean.ocorrencia.solucao}" autoResize="true" 
+                                 requiredMessage="O campo solução é obrigatório"/>
+                    
+                    <p:selectManyButton
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
